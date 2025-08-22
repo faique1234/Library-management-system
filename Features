@@ -1,0 +1,125 @@
+## Features
+
+The Library Management System offers the following features:
+
+### Admin Features
+- **Admin Authentication:** Secure login for administrators using hardcoded credentials with password input hidden using the `getpass` library.
+- **Book Management:**
+  - Add new books (name, author; serial number assigned automatically using the `random` library).
+  - Search books by name.
+  - Delete books by name.
+- **Member Management:**
+  - Add new members (name, CNIC as unique ID).
+  - Search members by CNIC.
+  - Delete members by CNIC.
+- **Navigation:** Console menus to guide through admin operations and return to main menu.
+
+### Member Features
+- **Member Authentication:** Login for members using their registered name and CNIC (password input hidden via `getpass`).
+- **Book Search:**
+  - Search by book name.
+  - Search by author name.
+- **Borrow Book:** Members can borrow available books using the book serial number.
+- **Return Book:** Members can return borrowed books using the serial number.
+- **Navigation:** Console menus to guide through member operations and return to main menu.
+
+---
+
+## Algorithm Flow
+
+The program follows a menu-driven flow with user interaction through console prompts. Here’s a high-level overview:
+
+1. **Startup:**
+   - Display login dashboard.
+   - Prompt user for Admin or Member login.
+
+2. **Admin Login:**
+   - Prompt for admin username and password (password hidden using `getpass`).
+   - On success, enter the admin main menu.
+   - Choose to manage books or members.
+
+3. **Book Management:**
+   - Add: Prompt for book details and append to the books list. Serial number is assigned randomly using the `random` library.
+   - Search: Prompt for book name, search in books list, display info.
+   - Delete: Prompt for book name, remove from books list if found.
+
+4. **Member Management:**
+   - Add: Prompt for member details and append to the members list.
+   - Search: Prompt for CNIC, search in members list, display info.
+   - Delete: Prompt for CNIC, remove from members list if found.
+
+5. **Member Login:**
+   - Prompt for member name and CNIC (input hidden using `getpass`).
+   - On success, enter the member main menu.
+
+6. **Member Actions:**
+   - Search Book: By name or author.
+   - Borrow Book: Enter serial number, update book status if available, associate with member.
+   - Return Book: Enter serial number, update book status if borrowed, disassociate from member.
+
+7. **Navigation & Exit:**
+   - Options to return to main menu or exit at every step.
+
+### Data Structures
+
+- **Book List:**  
+  ```python
+  books = [{"Serial no": "101", "Name": "Python Basics", "Author": "John Doe", "Status": "Available"}]
+  ```
+- **Member List:**  
+  ```python
+  members = [{"CNIC": "12345", "Name": "Faique", "Book Issued": 0}]
+  ```
+
+### Class Structure
+
+- `bookdetails`: Handles book operations for admin.
+- `memberdetails`: Handles member operations for admin.
+- `menuselect`: Main menu for admin, inherits bookdetails and memberdetails.
+- `adminlogin`: Handles admin login, inherits menuselect.
+- `MemberMenu`: Main menu for members.
+- `MemberLogin`: Handles member login, inherits MemberMenu.
+
+### External Libraries Used
+
+- **random**
+  - Used for generating random serial numbers for books.
+- **getpass**
+  - Used for secure password entry (hides password input on the console).
+
+---
+
+## Example Algorithm Flow
+
+```text
+START
+|
+|-- Display Login Dashboard
+    |-- If Admin Login
+        |-- Authenticate (username + password via getpass)
+        |-- Show Admin Menu
+            |-- Book Details
+                |-- Add/Search/Delete book (add uses random for serial)
+            |-- Member Details
+                |-- Add/Search/Delete member
+            |-- Log Out
+    |-- If Member Login
+        |-- Authenticate (name + CNIC via getpass)
+        |-- Show Member Menu
+            |-- Search book (by name/author)
+            |-- Borrow book
+            |-- Return book
+            |-- Log Out
+|
+END
+```
+
+---
+
+## Notes
+
+- All data is held in memory—no external database or file storage.
+- User interaction is via console prompts.
+- Password input is hidden for security using `getpass`.
+- Serial numbers for books are randomly assigned using `random`.
+- Login credentials are hardcoded for demonstration purposes.
